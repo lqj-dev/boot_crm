@@ -18,7 +18,7 @@
   </filter>
   <filter-mapping>
     <filter-name>encodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/*.action</url-pattern>
   </filter-mapping>
 <!--  3. 加载spring web mvc前端核心控制器-->
   <servlet>
@@ -32,6 +32,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>springmvc</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>/*.action</url-pattern>
   </servlet-mapping>
 </web-app>

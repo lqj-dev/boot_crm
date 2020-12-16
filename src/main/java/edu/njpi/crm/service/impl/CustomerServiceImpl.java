@@ -1,8 +1,8 @@
-package edu.njpi.customers.service.impl;
+package edu.njpi.crm.service.impl;
 
-import edu.njpi.customers.mapper.CustomerMapper;
-import edu.njpi.customers.model.Customer;
-import edu.njpi.customers.service.CustomerService;
+import edu.njpi.crm.mapper.CustomerMapper;
+import edu.njpi.crm.model.Customer;
+import edu.njpi.crm.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

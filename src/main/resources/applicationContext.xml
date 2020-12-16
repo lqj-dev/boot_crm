@@ -31,6 +31,23 @@
     </bean>
 <!--    3. 声明事务管理器-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="create*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="get*"  propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice"
+                     pointcut="execution(* edu.njpi.crm.service.*.*(..))"/>
+    </aop:config>
 <!--    4. 对Mytabis的sqlSessionFactory进行管理-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
@@ -38,9 +55,7 @@
     </bean>
 <!-- 5. 配置mapper扫描器 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="edu.njpi.customers.mapper"/>
+        <property name="basePackage" value="edu.njpi.crm.mapper"/>
     </bean>
-<!-- 6. 配置扫描Service -->
-    <context:component-scan base-package="edu.njpi.customers.service"/>
-
+    
 </beans>

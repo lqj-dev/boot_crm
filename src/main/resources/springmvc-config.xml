@@ -3,8 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+<!--    1. 加载属性文件-->
+    <context:property-placeholder location="resources.properties"/>
+<!--    2.加载注解驱动-->
     <mvc:annotation-driven/>
-    <context:component-scan base-package="edu.njpi.customers.controller"/>
+<!--    3. 扫描controller包-->
+    <context:component-scan base-package="edu.njpi.crm.controller"/>
+<!--    4. 加载viewResolver-->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
@@ -13,4 +18,11 @@
         <property name="defaultEncoding"  value="UTF-8"/>
         <property name="maxUploadSize" value="2097152000"/>
     </bean>
+<!--    5. 配置静态资源方法-->
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/fonts/**" location="/fonts/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
+<!--    6. 扫描servic包-->
+    <context:component-scan base-package="edu.njpi.crm.service"/>
 </beans>

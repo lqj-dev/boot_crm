@@ -1,4 +1,4 @@
-package edu.njpi.customers.controller;
+package edu.njpi.crm.controller;
 
 import org.springframework.stereotype.Controller;
 

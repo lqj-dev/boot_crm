@@ -1,4 +1,4 @@
-package edu.njpi.customers.service;
+package edu.njpi.crm.service;
 
 /**
  * @Classname StudentService

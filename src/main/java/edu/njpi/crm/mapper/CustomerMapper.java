@@ -1,7 +1,6 @@
-package edu.njpi.customers.mapper;
+package edu.njpi.crm.mapper;
 
-import edu.njpi.customers.model.Customer;
-import org.apache.ibatis.annotations.Select;
+import edu.njpi.crm.model.Customer;
 
 /**
  * @Classname CustomDao

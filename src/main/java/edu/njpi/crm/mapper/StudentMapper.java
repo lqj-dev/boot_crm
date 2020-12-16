@@ -1,6 +1,6 @@
-package edu.njpi.customers.mapper;
+package edu.njpi.crm.mapper;
 
-import edu.njpi.customers.model.Student;
+import edu.njpi.crm.model.Student;
 
 import java.util.List;
 

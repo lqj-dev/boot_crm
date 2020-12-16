@@ -1,4 +1,4 @@
-package edu.njpi.customers.model;
+package edu.njpi.crm.model;
 
 /**
  * @Classname Customer

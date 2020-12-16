@@ -1,4 +1,4 @@
-package edu.njpi.customers.service.impl;
+package edu.njpi.crm.service.impl;
 
 /**
  * @Classname StudentServiceImpl

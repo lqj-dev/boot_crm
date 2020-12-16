@@ -1,6 +1,6 @@
-package edu.njpi.customers.service;
+package edu.njpi.crm.service;
 
-import edu.njpi.customers.model.Customer;
+import edu.njpi.crm.model.Customer;
 
 public interface CustomerService {
     public Customer getCustomerById(Integer id);
