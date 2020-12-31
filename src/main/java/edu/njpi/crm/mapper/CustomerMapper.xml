@@ -3,7 +3,150 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.njpi.crm.mapper.CustomerMapper">
-    <select id="getCustomerById" parameterType="Integer" resultType="customer">
-            select * from t_customer where id=#{id}
+    <sql id="selectCustomerListWhere">
+        <where>
+            <if test="custName!=null">
+                cust_name like "%"#{custName}"%"
+            </if>
+            <if test="custSource!=null">
+                and cust_source=#{custSource}
+            </if>
+            <if test="custIndustry!=null">
+                and cust_industry=#{custIndustry}
+            </if>
+            <if test="custLevel!=null">
+                and cust_level=#{custLevel}
+            </if>
+        </where>
+    </sql>
+    <select id="selectCustomerList" parameterType="customer" resultMap="customerMap" resultType="customer">
+            select  cust_id,
+                    cust_name,
+                    cust_user_id,
+                    cust_create_id,
+                    b.dict_item_name cust_source,
+                    c.dict_item_name cust_industry,
+                    d.dict_item_name cust_level,
+                    cust_linkman,
+                    cust_phone,
+                    cust_mobile,
+                    cust_address,
+                    cust_zipcode,
+                    cust_createtime
+                    from tb_customer a
+
+                    left join
+                     (select dict_id,dict_item_name from tb_dict where dict_type_code='002') b
+                     on a.cust_source=b.dict_id
+
+                     left join
+                     (select dict_id,dict_item_name from tb_dict where dict_type_code='001') c
+                     on a.cust_industry=c.dict_id
+
+                     left join
+                     (select dict_id,dict_item_name from tb_dict where dict_type_code='006') d
+                     on a.cust_level=d.dict_id
+                     <include refid="selectCustomerListWhere"></include>
+                     <if test="start !=null and rows !=null">
+                         limit #{start},#{rows}
+                     </if>
     </select>
+    <select id="selectCustomerListCount" parameterType="customer"  resultType="Integer">
+        select count(*) from tb_customer
+                <include refid="selectCustomerListWhere"></include>
+    </select>
+    <select id="getCustomerById" parameterType="Integer" resultMap="customerMap" resultType="customer">
+        select * from tb_customer where cust_id=#{id}
+    </select>
+    <insert id="createCustomer" parameterType="customer">
+        insert into tb_customer(
+            cust_name,
+            cust_user_id,
+            cust_create_id,
+            cust_source,
+            cust_industry,
+            cust_level,
+            cust_linkman,
+            cust_phone,
+            cust_mobile,
+            cust_zipcode,
+            cust_address,
+            cust_createtime
+        ) values(
+            #{custName},
+            #{custUserId},
+            #{custCreateId},
+            #{custSource},
+            #{custIndustry},
+            #{custLevel},
+            #{custLinkMan},
+            #{custPhone},
+            #{custMobile},
+            #{custZipCode},
+            #{custAddress},
+            #{custCreateTime}
+        )
+
+    </insert>
+    <update id="updateCustomer" parameterType="customer"  >
+        update tb_customer
+        <set>
+            <if test="custName!=null">
+                cust_name=#{custName},
+            </if>
+            <if test="custUserId!=null">
+                cust_user_id=#{custUserId},
+            </if>
+            <if test="custCreateId!=null">
+                cust_create_id=#{custCreateId},
+            </if>
+            <if test="custSource!=null">
+                cust_source=#{custSource},
+            </if>
+            <if test="custIndustry!=null">
+                cust_industry=#{custIndustry},
+            </if>
+            <if test="custLevel!=null">
+                cust_level=#{custLevel},
+            </if>
+            <if test="custLinkMan!=null">
+                cust_linkman=#{custLinkMan},
+            </if>
+            <if test="custPhone!=null">
+                cust_phone=#{custPhone},
+            </if>
+            <if test="custMobile!=null">
+                cust_mobile=#{custMobile},
+            </if>
+            <if test="custZipCode!=null">
+                cust_zipcode=#{custZipCode},
+            </if>
+            <if test="custAddress!=null">
+                cust_address=#{custAddress},
+            </if>
+            <if test="custCreateTime!=null">
+                cust_createtime=#{custCreateTime},
+            </if>
+        </set>
+        where cust_id=#{custId}
+    </update>
+    <delete id="deleteCustomer" parameterType="Integer">
+        delete from tb_customer where cust_id=#{id}
+    </delete>
+    <resultMap id="customerMap" type="edu.njpi.crm.model.Customer">
+        <id property="custId" column="cust_id"/>
+        <result property="custName" column="cust_name"/>
+        <result property="custUserId" column="cust_user_id"/>
+        <result property="custCreateId" column="cust_create_id"/>
+        <result property="custSource" column="cust_source"/>
+        <result property="custIndustry" column="cust_industry"/>
+        <result property="custLevel" column="cust_level"/>
+        <result property="custLinkMan" column="cust_linkman"/>
+        <result property="custPhone" column="cust_phone"/>
+        <result property="custMobile" column="cust_mobile"/>
+        <result property="custZipCode" column="cust_zipcode"/>
+        <result property="custAddress" column="cust_address"/>
+        <result property="custCreateTime" column="cust_createtime"/>
+    </resultMap>
+
 </mapper>
